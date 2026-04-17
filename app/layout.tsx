@@ -9,10 +9,10 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Cheers & Chaos",
+  title: "Bringuasse",
   description: "Le jeu d'alcool ultime pour vos soirées",
   manifest: "/manifest.json",
-  appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "Cheers & Chaos" },
+  appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "Bringuasse" },
 };
 
 export const viewport: Viewport = {

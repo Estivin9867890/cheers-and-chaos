@@ -39,10 +39,8 @@ export default function HomePage() {
             <Beer className="w-14 h-14 text-white" />
           </div>
           <h1 className="text-5xl font-extrabold text-white mb-2 leading-tight">
-            Cheers &amp;
-            <br />
             <span className="bg-gradient-to-r from-violet-400 to-rose-400 bg-clip-text text-transparent">
-              Chaos
+              Bringuasse
             </span>
           </h1>
           <p className="text-white/50 text-lg mt-3 max-w-xs mx-auto">
