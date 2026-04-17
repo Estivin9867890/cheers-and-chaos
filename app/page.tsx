@@ -1,65 +1,100 @@
-import Image from "next/image";
+"use client";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { Beer, Sparkles } from "lucide-react";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="min-h-dvh flex flex-col items-center justify-between relative overflow-hidden">
+      {/* Background gradient blobs */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-[-20%] left-[-20%] w-[70vw] h-[70vw] rounded-full bg-violet-700/30 blur-[80px]" />
+        <div className="absolute bottom-[-20%] right-[-20%] w-[60vw] h-[60vw] rounded-full bg-rose-600/25 blur-[80px]" />
+        <div className="absolute top-[40%] left-[30%] w-[40vw] h-[40vw] rounded-full bg-purple-800/20 blur-[60px]" />
+      </div>
+
+      {/* Header */}
+      <div className="relative pt-16 px-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="flex items-center justify-center gap-2 mb-6"
+        >
+          <span className="text-3xl">🍻</span>
+          <span className="text-white/50 text-sm uppercase tracking-widest">Jeux de soirée</span>
+          <span className="text-3xl">🎉</span>
+        </motion.div>
+      </div>
+
+      {/* Main content */}
+      <div className="relative flex-1 flex flex-col items-center justify-center px-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, type: "spring", bounce: 0.4 }}
+          className="mb-8"
+        >
+          <div className="w-28 h-28 rounded-[32px] bg-gradient-to-br from-violet-600 to-rose-500 shadow-2xl flex items-center justify-center mb-6 mx-auto">
+            <Beer className="w-14 h-14 text-white" />
+          </div>
+          <h1 className="text-5xl font-extrabold text-white mb-2 leading-tight">
+            Cheers &amp;
+            <br />
+            <span className="bg-gradient-to-r from-violet-400 to-rose-400 bg-clip-text text-transparent">
+              Chaos
+            </span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-white/50 text-lg mt-3 max-w-xs mx-auto">
+            Le jeu d&apos;alcool ultime pour vos soirées inoubliables
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+        </motion.div>
+
+        {/* Feature pills */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="flex flex-wrap gap-2 justify-center mb-10"
+        >
+          {["7 jeux", "Un seul appareil", "Illimité"].map((label) => (
+            <span
+              key={label}
+              className="px-3 py-1.5 bg-white/10 rounded-full text-white/60 text-sm border border-white/10"
+            >
+              {label}
+            </span>
+          ))}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, type: "spring" }}
+          className="w-full max-w-sm"
+        >
+          <Link href="/lobby" className="block">
+            <motion.div
+              whileTap={{ scale: 0.96 }}
+              className="w-full py-5 bg-gradient-to-r from-violet-600 to-rose-500 rounded-2xl text-white text-xl font-bold text-center shadow-2xl flex items-center justify-center gap-3"
+            >
+              <Sparkles className="w-5 h-5" />
+              Commencer la soirée
+              <Sparkles className="w-5 h-5" />
+            </motion.div>
+          </Link>
+        </motion.div>
+      </div>
+
+      {/* Footer */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.9 }}
+        className="relative pb-10 text-white/20 text-xs text-center"
+      >
+        À consommer avec modération 🍺
+      </motion.div>
     </div>
   );
 }
