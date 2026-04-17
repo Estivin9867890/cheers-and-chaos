@@ -11,14 +11,17 @@ import { usePlayerStore } from "@/lib/store/playerStore";
 type Phase = "find-triman" | "playing";
 
 interface RuleResult {
-  type: "triman" | "double-triman" | "sum9" | "sum10" | "sum11" | "double" | "empty";
+  type: string;
   label: string;
   sublabel: string;
   neon: string;
   reflexIcon?: string;
+  /** true = action déclenchée → le lanceur rejoue immédiatement
+   *  false = lancer vide → passe le téléphone */
+  isAction: boolean;
 }
 
-// ─── Dice face ────────────────────────────────────────────────────────────────
+// ─── Dé 2D ───────────────────────────────────────────────────────────────────
 
 const DOT_POSITIONS: Record<number, [number, number][]> = {
   1: [[50, 50]],
@@ -41,75 +44,149 @@ function DiceFace({ value, borderClass }: { value: number; borderClass: string }
   );
 }
 
-// ─── Rule evaluation ──────────────────────────────────────────────────────────
+// ─── Tableau des règles (phase de jeu uniquement) ─────────────────────────────
+//
+// Priorités :
+//   1. Un dé affiche 3         → Triman boit (1 gorgée par dé-3)
+//   2. Somme = 3 (1+2)         → Triman boit 1
+//   3. Double                  → le lanceur distribue (valeur d'un dé)
+//   4. 5+1 spécifiquement      → SOCIAL (tout le monde boit 1)
+//   5. 4+1 spécifiquement      → le lanceur boit 1
+//   6. Somme 9 / 10 / 11       → réflexe physique
+//   7. Tout le reste           → lancer vide (passe le téléphone)
 
 function evaluate(d1: number, d2: number): RuleResult {
   const sum = d1 + d2;
+  const threeCount = (d1 === 3 ? 1 : 0) + (d2 === 3 ? 1 : 0);
 
-  if (d1 === 3 && d2 === 3)
-    return { type: "double-triman", label: "DOUBLE TRIMAN 💀", sublabel: "Ce joueur est Double Triman", neon: "border-red-500" };
+  // ── 1. Dé(s) affichant 3 ───────────────────────────────────────────────────
+  if (threeCount > 0) {
+    return {
+      type: "has-three",
+      label: threeCount === 2 ? "DOUBLE 3 ! 💀" : "LE CHIFFRE 3 ! 👑",
+      sublabel: `Le Triman boit ${threeCount} gorgée${threeCount > 1 ? "s" : ""}`,
+      neon: "border-yellow-400",
+      isAction: true,
+    };
+  }
 
-  if (d1 === 3 || d2 === 3 || sum === 3)
-    return { type: "triman", label: "TRIMAN ! 👑", sublabel: "Ce joueur devient le Triman", neon: "border-yellow-400" };
+  // ── 2. Somme 3 (1+2 / 2+1) ────────────────────────────────────────────────
+  if (sum === 3) {
+    return {
+      type: "sum3",
+      label: "SOMME 3 !",
+      sublabel: "Le Triman boit 1 gorgée",
+      neon: "border-yellow-400",
+      isAction: true,
+    };
+  }
 
+  // ── 3. Double ──────────────────────────────────────────────────────────────
+  if (d1 === d2) {
+    return {
+      type: "double",
+      label: `DOUBLE ${d1} !`,
+      sublabel: `Distribue ${d1} gorgée${d1 > 1 ? "s" : ""} à qui tu veux`,
+      neon: "border-purple-400",
+      isAction: true,
+    };
+  }
+
+  // ── 4. 5+1 → SOCIAL ────────────────────────────────────────────────────────
+  if ((d1 === 5 && d2 === 1) || (d1 === 1 && d2 === 5)) {
+    return {
+      type: "social",
+      label: "SOCIAL ! 🥂",
+      sublabel: "Tout le monde boit 1 gorgée",
+      neon: "border-cyan-400",
+      isAction: true,
+    };
+  }
+
+  // ── 5. 4+1 → lanceur boit ─────────────────────────────────────────────────
+  if ((d1 === 4 && d2 === 1) || (d1 === 1 && d2 === 4)) {
+    return {
+      type: "sum5",
+      label: "SOMME 5 !",
+      sublabel: "Le lanceur boit 1 gorgée",
+      neon: "border-rose-400",
+      isAction: true,
+    };
+  }
+
+  // ── 6. Réflexes physiques ─────────────────────────────────────────────────
   if (sum === 9)
-    return { type: "sum9", label: "SOMME 9 — Pouce en bas 👎", sublabel: "Le dernier à baisser le pouce boit", reflexIcon: "👎", neon: "border-blue-400" };
-
+    return { type: "sum9",  label: "SOMME 9 — Pouce en bas",   sublabel: "Le dernier à baisser le pouce boit", reflexIcon: "👎", neon: "border-blue-400",    isAction: true };
   if (sum === 10)
-    return { type: "sum10", label: "SOMME 10 — Poing fermé ✊", sublabel: "Le dernier à faire le poing boit", reflexIcon: "✊", neon: "border-orange-400" };
-
+    return { type: "sum10", label: "SOMME 10 — Poing fermé",   sublabel: "Le dernier à faire le poing boit",   reflexIcon: "✊", neon: "border-orange-400",  isAction: true };
   if (sum === 11)
-    return { type: "sum11", label: "SOMME 11 — Pouce en haut 👍", sublabel: "Le dernier à lever le pouce boit", reflexIcon: "👍", neon: "border-emerald-400" };
+    return { type: "sum11", label: "SOMME 11 — Pouce en haut", sublabel: "Le dernier à lever le pouce boit",   reflexIcon: "👍", neon: "border-emerald-400", isAction: true };
 
-  if (d1 === d2)
-    return { type: "double", label: `DOUBLE ${d1} !`, sublabel: "Le Triman distribue des gorgées", neon: "border-purple-400" };
-
-  return { type: "empty", label: `Somme ${sum}`, sublabel: "Lancer vide — passe le téléphone", neon: "border-white/15" };
+  // ── 7. Lancer vide ────────────────────────────────────────────────────────
+  return {
+    type: "empty",
+    label: `Somme ${sum}`,
+    sublabel: "Lancer vide — passe le téléphone",
+    neon: "border-white/15",
+    isAction: false,
+  };
 }
 
-// ─── Neon styles ──────────────────────────────────────────────────────────────
+// Détecte si le lancer désigne un Triman (phase élection)
+function isTrimanRoll(d1: number, d2: number): boolean {
+  return d1 === 3 || d2 === 3 || d1 + d2 === 3;
+}
+
+// ─── Couleurs de fond néon ────────────────────────────────────────────────────
 
 const NEON_BG: Record<string, string> = {
-  "double-triman": "from-red-900/40 to-transparent",
-  triman:          "from-yellow-800/35 to-transparent",
-  sum9:            "from-blue-900/35 to-transparent",
-  sum10:           "from-orange-900/35 to-transparent",
-  sum11:           "from-emerald-900/35 to-transparent",
-  double:          "from-purple-900/35 to-transparent",
-  empty:           "from-slate-900/10 to-transparent",
+  "has-three": "from-yellow-800/40 to-transparent",
+  sum3:        "from-yellow-800/30 to-transparent",
+  double:      "from-purple-900/40 to-transparent",
+  social:      "from-cyan-900/40 to-transparent",
+  sum5:        "from-rose-900/35 to-transparent",
+  sum9:        "from-blue-900/35 to-transparent",
+  sum10:       "from-orange-900/35 to-transparent",
+  sum11:       "from-emerald-900/35 to-transparent",
+  empty:       "from-slate-900/10 to-transparent",
+  triman:      "from-yellow-800/50 to-transparent",
 };
 
 const LABEL_COLOR: Record<string, string> = {
-  "double-triman": "text-red-400",
-  triman:          "text-yellow-400",
-  sum9:            "text-blue-400",
-  sum10:           "text-orange-400",
-  sum11:           "text-emerald-400",
-  double:          "text-purple-400",
-  empty:           "text-white/40",
+  "has-three": "text-yellow-300",
+  sum3:        "text-yellow-300",
+  double:      "text-purple-300",
+  social:      "text-cyan-300",
+  sum5:        "text-rose-300",
+  sum9:        "text-blue-300",
+  sum10:       "text-orange-300",
+  sum11:       "text-emerald-300",
+  empty:       "text-white/40",
+  triman:      "text-yellow-300",
 };
 
-// ─── Component ────────────────────────────────────────────────────────────────
+// ─── Composant principal ──────────────────────────────────────────────────────
 
 export default function LeTrimanPage() {
   const { players } = usePlayerStore();
 
-  // Phase & turn tracking
+  // ── État de phase ────────────────────────────────────────────────────────
   const [phase, setPhase]         = useState<Phase>("find-triman");
-  const [findIdx, setFindIdx]     = useState(0);           // élection : qui lance
-  const [trimanIdx, setTrimanIdx] = useState<number | null>(null);
-  const [isDouble, setIsDouble]   = useState(false);
-  const [activeIdx, setActiveIdx] = useState(0);           // jeu : lanceur actuel
-  const [emptySet, setEmptySet]   = useState<Set<number>>(new Set()); // non-Triman ayant fait vide
+  const [findIdx, setFindIdx]     = useState(0);                     // lanceur actuel (élection)
+  const [trimanIdx, setTrimanIdx] = useState<number | null>(null);   // index du Triman désigné
+  const [activeIdx, setActiveIdx] = useState(0);                     // lanceur actuel (jeu)
+  const [donePlayers, setDonePlayers] = useState<Set<number>>(new Set()); // joueurs ayant fait vide
 
-  // Dés
+  // ── État des dés ─────────────────────────────────────────────────────────
   const [d1, setD1]           = useState(1);
   const [d2, setD2]           = useState(2);
   const [rolling, setRolling] = useState(false);
-  const [result, setResult]   = useState<RuleResult | null>(null);
   const [rolled, setRolled]   = useState(false);
 
-  // ── Lancer les dés ────────────────────────────────────────────────────────
+  // Résultat : en phase jeu → evaluate() ; en phase élection → minimal
+  const [result, setResult]   = useState<RuleResult | null>(null);
+
+  // ── Lancer les dés ───────────────────────────────────────────────────────
 
   const roll = useCallback(() => {
     if (rolling) return;
@@ -128,34 +205,51 @@ export default function LeTrimanPage() {
         const fd2 = Math.ceil(Math.random() * 6);
         setD1(fd1);
         setD2(fd2);
-        const res = evaluate(fd1, fd2);
-        setResult(res);
         setRolled(true);
         setRolling(false);
 
-        // Phase élection : triman trouvé → transition automatique
+        // ══ PHASE ÉLECTION ══════════════════════════════════════════════════
         if (phase === "find-triman") {
-          if (res.type === "triman" || res.type === "double-triman") {
-            const idx = findIdx;
-            setTrimanIdx(idx);
-            setIsDouble(res.type === "double-triman");
-            const firstRoller = (idx + 1) % players.length;
-            setActiveIdx(firstRoller);
-            setEmptySet(new Set());
+          if (isTrimanRoll(fd1, fd2)) {
+            // Triman trouvé → transition automatique vers le jeu
+            setResult({
+              type: "triman",
+              label: "TRIMAN TROUVÉ ! 👑",
+              sublabel: `${players[findIdx]?.name} est le Triman !`,
+              neon: "border-yellow-400",
+              isAction: false,
+            });
+            const first = (findIdx + 1) % players.length; // joueur à gauche du Triman
             setTimeout(() => {
+              setTrimanIdx(findIdx);
+              setActiveIdx(first);
+              setDonePlayers(new Set());
               setPhase("playing");
               setResult(null);
               setRolled(false);
-            }, 1300);
+            }, 1400);
+          } else {
+            // Pas de Triman → affiche le résultat, attend "Joueur suivant"
+            setResult({
+              type: "empty",
+              label: `Somme ${fd1 + fd2}`,
+              sublabel: "Pas de Triman — passe le téléphone",
+              neon: "border-white/15",
+              isAction: false,
+            });
           }
-          // Sinon : bouton "Joueur suivant" apparaît
+          return;
         }
-        // Phase jeu : le résultat s'affiche, les boutons gèrent la suite
+
+        // ══ PHASE JEU ═══════════════════════════════════════════════════════
+        if (phase === "playing") {
+          setResult(evaluate(fd1, fd2));
+        }
       }
     }, 75);
-  }, [rolling, phase, findIdx, players.length]);
+  }, [rolling, phase, findIdx, players]);
 
-  // ── Avancer joueur (phase élection) ──────────────────────────────────────
+  // ── Avancer en phase élection ─────────────────────────────────────────────
 
   const advanceFind = () => {
     setFindIdx((prev) => (prev + 1) % players.length);
@@ -169,50 +263,57 @@ export default function LeTrimanPage() {
     if (trimanIdx === null) return;
 
     const nonTriman = players.map((_, i) => i).filter((i) => i !== trimanIdx);
-    const newEmpty = new Set(emptySet).add(activeIdx);
+    const newDone = new Set(donePlayers).add(activeIdx);
 
-    // Tous les non-Triman ont fait vide → retour élection
-    if (nonTriman.every((i) => newEmpty.has(i))) {
+    // Tous les non-Triman ont fait vide → nouveau cycle
+    if (nonTriman.every((i) => newDone.has(i))) {
       setPhase("find-triman");
       setTrimanIdx(null);
-      setIsDouble(false);
       setFindIdx(0);
-      setEmptySet(new Set());
+      setDonePlayers(new Set());
       setResult(null);
       setRolled(false);
       return;
     }
 
-    // Prochain non-Triman (on saute le Triman)
+    // Prochain joueur en sautant le Triman
     let next = (activeIdx + 1) % players.length;
     while (next === trimanIdx) next = (next + 1) % players.length;
     setActiveIdx(next);
-    setEmptySet(newEmpty);
+    setDonePlayers(newDone);
     setResult(null);
     setRolled(false);
   };
 
-  // ── Logique des boutons ───────────────────────────────────────────────────
+  // ── Logique d'affichage des boutons ───────────────────────────────────────
   //
-  // Règle simple :
-  //   • Pas encore lancé → "Lancer les dés"
-  //   • Phase jeu, résultat non-vide → "Relancer" (même joueur)
-  //   • Phase jeu, résultat vide → "Passe le téléphone →"
-  //   • Phase élection, résultat non-triman → "Joueur suivant →"
-  //   • Phase élection, résultat triman → boutons masqués (transition auto)
+  //  Phase élection :
+  //    • Pas encore lancé                → "Trouver le Triman"
+  //    • Résultat non-Triman             → "Joueur suivant →"
+  //    • Résultat Triman                 → (transition auto, aucun bouton)
+  //
+  //  Phase jeu :
+  //    • Pas encore lancé OU action      → "Lancer les dés" / "Relancer"
+  //    • Lancer vide                     → "Passer au suivant →"
 
-  const isTrimanResult   = result?.type === "triman" || result?.type === "double-triman";
-  const showRollButton   = !rolling && (!rolled || (phase === "playing" && rolled && result?.type !== "empty"));
-  const showPassPhone    = phase === "playing"    && rolled && result?.type === "empty";
-  const showNextFind     = phase === "find-triman" && rolled && !isTrimanResult;
+  const isTrimanTransitioning = rolled && result?.type === "triman";
+  const showRoll =
+    !rolling &&
+    !isTrimanTransitioning &&
+    (
+      (phase === "find-triman" && !rolled) ||
+      (phase === "playing" && (!rolled || result?.isAction === true))
+    );
+  const showPassPhone = phase === "playing" && rolled && result?.isAction === false;
+  const showNextFind  = phase === "find-triman" && rolled && result?.type !== "triman";
 
-  // ── Derived ───────────────────────────────────────────────────────────────
-
+  // ── Dérivés visuels ───────────────────────────────────────────────────────
   const triman      = trimanIdx !== null ? players[trimanIdx] : null;
   const roller      = phase === "find-triman" ? players[findIdx] : players[activeIdx];
   const borderClass = result?.neon ?? "border-white/10";
-  const bgGradient  = result ? NEON_BG[result.type] : NEON_BG.empty;
-  const labelColor  = result ? LABEL_COLOR[result.type] : "text-white/20";
+  const bgType      = result?.type ?? "empty";
+  const bgGradient  = NEON_BG[bgType] ?? NEON_BG.empty;
+  const labelColor  = LABEL_COLOR[bgType] ?? "text-white/40";
 
   return (
     <div className="flex flex-col min-h-dvh bg-[#080614] relative overflow-hidden">
@@ -229,66 +330,84 @@ export default function LeTrimanPage() {
         />
       </AnimatePresence>
 
-      {/* Header */}
+      {/* ── Header ─────────────────────────────────────────────────────────── */}
       <div className="relative flex items-center gap-3 px-6 pt-14 pb-3 z-10">
-        <Link href="/game-select" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
+        <Link href="/game-select"
+          className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0"
+        >
           <ArrowLeft className="w-5 h-5 text-white" />
         </Link>
-        <div>
+        <div className="flex-1 min-w-0">
           <p className="text-xs font-semibold uppercase tracking-widest bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
             Le Triman
           </p>
-          <p className="text-white/40 text-xs mt-0.5">
-            {phase === "find-triman" ? "Recherche du Triman" : `Triman : ${triman?.name ?? "—"}`}
-          </p>
+          {triman ? (
+            <div className="flex items-center gap-1.5 mt-0.5">
+              <Crown className="w-3.5 h-3.5 text-yellow-400 flex-shrink-0" />
+              <p className="text-yellow-300 text-xs font-bold truncate">
+                Triman : {triman.name}
+              </p>
+            </div>
+          ) : (
+            <p className="text-white/40 text-xs mt-0.5">Recherche du Triman…</p>
+          )}
         </div>
       </div>
 
-      {/* Bandeau de phase */}
+      {/* ── Bandeau de phase ───────────────────────────────────────────────── */}
       <AnimatePresence mode="wait">
+
+        {/* Élection */}
         {phase === "find-triman" && (
-          <motion.div key="find-banner"
+          <motion.div
+            key="find-banner"
             initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-            className="relative mx-6 mb-1 z-10"
+            className="relative mx-6 mb-2 z-10"
           >
             <div className="rounded-2xl border border-yellow-500/40 bg-yellow-500/10 px-4 py-3 flex items-center justify-between">
               <motion.span
                 animate={{ opacity: [1, 0.3, 1] }}
-                transition={{ duration: 1, repeat: Infinity }}
+                transition={{ duration: 1.2, repeat: Infinity }}
                 className="text-yellow-400 font-bold text-xs uppercase tracking-widest"
               >
                 QUI EST LE TRIMAN ?
               </motion.span>
-              {players[findIdx] && (
-                <span className="text-yellow-300 text-sm">
-                  Tour de <strong>{players[findIdx].name}</strong>
-                </span>
+              {roller && (
+                <div className="flex items-center gap-2">
+                  <PlayerAvatar name={roller.name} color={roller.color} size="sm" />
+                  <span className="text-yellow-300 text-sm font-semibold">{roller.name}</span>
+                </div>
               )}
             </div>
           </motion.div>
         )}
 
+        {/* Jeu */}
         {phase === "playing" && triman && roller && (
-          <motion.div key="play-banner"
+          <motion.div
+            key="play-banner"
             initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}
-            className="relative mx-6 mb-1 z-10"
+            className="relative mx-6 mb-2 z-10"
           >
-            <div className="rounded-2xl border border-yellow-400/40 bg-yellow-400/10 px-4 py-3 flex items-center gap-3">
-              <Crown className="w-4 h-4 text-yellow-400 flex-shrink-0" />
+            <div className="rounded-2xl border border-purple-400/40 bg-purple-400/10 px-4 py-3 flex items-center gap-3">
               <div className="flex-1 min-w-0">
-                <p className="text-yellow-300 font-bold text-sm truncate">
-                  {triman.name}{isDouble ? " — DOUBLE TRIMAN 💀" : " — Triman 👑"}
-                </p>
-                <p className="text-white/50 text-xs">
-                  Lance : <span className="text-white font-semibold">{roller.name}</span>
-                </p>
+                <p className="text-white/50 text-xs">Lance les dés :</p>
+                <div className="flex items-center gap-2 mt-0.5">
+                  <PlayerAvatar name={roller.name} color={roller.color} size="sm" />
+                  <p className="text-white font-bold text-base truncate">{roller.name}</p>
+                </div>
+              </div>
+              <div className="text-right flex-shrink-0">
+                <p className="text-white/40 text-xs">Triman 👑</p>
+                <p className="text-yellow-300 font-bold text-sm">{triman.name}</p>
               </div>
             </div>
           </motion.div>
         )}
+
       </AnimatePresence>
 
-      {/* ── ZONE PRINCIPALE ── */}
+      {/* ── Zone principale ────────────────────────────────────────────────── */}
       <div className="relative flex-1 flex flex-col items-center justify-center gap-6 px-6 pb-4 z-10">
 
         {/* Dés */}
@@ -329,14 +448,13 @@ export default function LeTrimanPage() {
           )}
         </AnimatePresence>
 
-        {/* ── BOUTONS ── */}
+        {/* ── Boutons ──────────────────────────────────────────────────────── */}
         <div className="w-full max-w-sm flex flex-col gap-3">
 
-          {/* Lancer / Relancer — jamais bloqué après une règle */}
-          {showRollButton && (
+          {/* Lancer / Relancer */}
+          {showRoll && (
             <motion.button
-              key="roll-btn"
-              initial={rolled ? { opacity: 0, y: 8 } : { opacity: 1 }}
+              initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               whileTap={{ scale: 0.94 }}
               onClick={roll}
@@ -352,11 +470,17 @@ export default function LeTrimanPage() {
               >
                 <Dices className="w-6 h-6" />
               </motion.div>
-              {rolling ? "Lancé…" : rolled ? "Relancer" : "Lancer les dés"}
+              {rolling
+                ? "Lancé…"
+                : phase === "find-triman" && !rolled
+                ? "Trouver le Triman"
+                : rolled
+                ? "Relancer"
+                : "Lancer les dés"}
             </motion.button>
           )}
 
-          {/* Passe le téléphone — seulement sur lancer vide en phase jeu */}
+          {/* Passer au suivant — lancer vide en phase jeu */}
           {showPassPhone && (
             <motion.button
               initial={{ opacity: 0, y: 8 }}
@@ -365,11 +489,11 @@ export default function LeTrimanPage() {
               onClick={advancePlay}
               className="w-full py-4 rounded-2xl font-bold text-base flex items-center justify-center gap-2 bg-white/10 text-white border border-white/20"
             >
-              Passe le téléphone →
+              Passer au suivant →
             </motion.button>
           )}
 
-          {/* Joueur suivant — seulement en phase élection (résultat non-triman) */}
+          {/* Joueur suivant — élection, résultat non-Triman */}
           {showNextFind && (
             <motion.button
               initial={{ opacity: 0, y: 8 }}
@@ -384,31 +508,37 @@ export default function LeTrimanPage() {
         </div>
       </div>
 
-      {/* Scoreboard — joueurs uniquement, sans compteur de verres */}
+      {/* ── Scoreboard (joueurs, sans compteur de verres) ──────────────────── */}
       <div className="relative z-10 px-4 pb-8 flex gap-3 justify-center flex-wrap">
         {players.map((p, i) => {
           const isTriman  = i === trimanIdx;
           const isRoller  = phase === "find-triman" ? i === findIdx : i === activeIdx;
+          const hasDone   = donePlayers.has(i);
           return (
             <div
               key={p.id}
               className={`flex flex-col items-center gap-1 px-3 py-2 rounded-2xl border transition-all ${
                 isTriman
-                  ? "border-yellow-400/50 bg-yellow-400/10"
+                  ? "border-yellow-400/60 bg-yellow-400/10"
                   : isRoller
-                  ? "border-purple-400/50 bg-purple-400/10"
+                  ? "border-purple-400/60 bg-purple-400/10"
+                  : hasDone && phase === "playing"
+                  ? "border-white/5 bg-white/3 opacity-50"
                   : "border-white/10 bg-white/5"
               }`}
             >
               <div className="relative">
                 <PlayerAvatar name={p.name} color={p.color} size="sm" />
-                {isTriman && <Crown className="absolute -top-2 -right-2 w-3.5 h-3.5 text-yellow-400" />}
+                {isTriman && (
+                  <Crown className="absolute -top-2 -right-2 w-3.5 h-3.5 text-yellow-400" />
+                )}
               </div>
               <span className={`text-xs font-medium ${isRoller || isTriman ? "text-white" : "text-white/50"}`}>
                 {p.name}
               </span>
-              {isTriman && (
-                <span className="text-yellow-400/70 text-xs">👑 Triman</span>
+              {isTriman && <span className="text-yellow-400/70 text-xs">👑</span>}
+              {hasDone && phase === "playing" && !isTriman && (
+                <span className="text-white/30 text-xs">✓</span>
               )}
             </div>
           );
