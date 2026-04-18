@@ -5,7 +5,8 @@ export type GameMode =
   | "le-palmier"
   | "la-pyramide"
   | "le-triman"
-  | "culture-generale";
+  | "culture-generale"
+  | "tu-preferes";
 
 export type GameVariant = "standard" | "spicy" | "extreme";
 

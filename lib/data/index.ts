@@ -3,6 +3,8 @@ export { QUI_POURRAIT } from "./qui-pourrait";
 export { KINGS_CUP_RULES, getRulesForVariant, generateDeck, SUITS, VALUES } from "./kings-cup";
 export { PALMIER_CHALLENGES } from "./le-palmier";
 export { CULTURE_GENERALE } from "./culture-generale";
+export { TU_PREFERES } from "./tu-preferes";
+export type { TuPreferesCard } from "./tu-preferes";
 
 import { JE_NAI_JAMAIS } from "./je-nai-jamais";
 import { QUI_POURRAIT } from "./qui-pourrait";

@@ -182,27 +182,33 @@ export default function LeTrimanPage() {
   const [d2, setD2]           = useState(2);
   const [rolling, setRolling] = useState(false);
   const [rolled, setRolled]   = useState(false);
+  // rollKey force le re-trigger AnimatePresence même si les valeurs sont identiques
+  const [rollKey, setRollKey] = useState(0);
 
   // Résultat : en phase jeu → evaluate() ; en phase élection → minimal
   const [result, setResult]   = useState<RuleResult | null>(null);
+
+  // Générateur non biaisé : Math.floor garantit 1–6 sans edge-case à 0
+  const randDie = () => Math.floor(Math.random() * 6) + 1;
 
   // ── Lancer les dés ───────────────────────────────────────────────────────
 
   const roll = useCallback(() => {
     if (rolling) return;
     setRolling(true);
+    setRollKey((k) => k + 1);
     setResult(null);
     setRolled(false);
 
     let count = 0;
     const interval = setInterval(() => {
-      setD1(Math.ceil(Math.random() * 6));
-      setD2(Math.ceil(Math.random() * 6));
+      setD1(randDie());
+      setD2(randDie());
       count++;
       if (count >= 14) {
         clearInterval(interval);
-        const fd1 = Math.ceil(Math.random() * 6);
-        const fd2 = Math.ceil(Math.random() * 6);
+        const fd1 = randDie();
+        const fd2 = randDie();
         setD1(fd1);
         setD2(fd2);
         setRolled(true);
@@ -431,7 +437,7 @@ export default function LeTrimanPage() {
         <AnimatePresence mode="wait">
           {result && rolled && (
             <motion.div
-              key={`${d1}-${d2}-${result.type}`}
+              key={`roll-${rollKey}`}
               initial={{ opacity: 0, y: 20, scale: 0.93 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0 }}

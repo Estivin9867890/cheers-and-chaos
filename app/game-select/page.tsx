@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { ArrowLeft, MessageCircle, HelpCircle, Crown, Palmtree, Triangle, RotateCcw, BookOpen } from "lucide-react";
+import { ArrowLeft, MessageCircle, HelpCircle, Crown, Palmtree, Triangle, RotateCcw, BookOpen, Shuffle } from "lucide-react";
 import Link from "next/link";
 import GameCard from "@/components/game-select/GameCard";
 import { usePlayerStore } from "@/lib/store/playerStore";
@@ -57,6 +57,13 @@ const GAMES = [
     description: "Testez vos connaissances ou buvez !",
     minPlayers: 2,
     path: "/game/culture-generale",
+  },
+  {
+    mode: "tu-preferes" as GameMode,
+    icon: Shuffle,
+    description: "Des dilemmes impossibles, la minorité boit !",
+    minPlayers: 2,
+    path: "/game/tu-preferes",
   },
 ];
 
