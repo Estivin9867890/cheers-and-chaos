@@ -5,6 +5,8 @@ export { PALMIER_CHALLENGES } from "./le-palmier";
 export { CULTURE_GENERALE } from "./culture-generale";
 export { TU_PREFERES } from "./tu-preferes";
 export type { TuPreferesCard } from "./tu-preferes";
+export { FUN_FACTS } from "./fun-facts";
+export type { FunFactCard, FunFactType } from "./fun-facts";
 
 import { JE_NAI_JAMAIS } from "./je-nai-jamais";
 import { QUI_POURRAIT } from "./qui-pourrait";

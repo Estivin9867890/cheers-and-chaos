@@ -2,8 +2,17 @@ export function cn(...inputs: (string | undefined | null | false)[]): string {
   return inputs.flat().filter(Boolean).join(" ");
 }
 
+/**
+ * Knuth-Fisher-Yates shuffle.
+ * Avance le PRNG de quelques steps basés sur Date.now() avant de mélanger,
+ * pour éviter deux mélanges identiques consécutifs même en rapide succession.
+ */
 export function shuffle<T>(array: T[]): T[] {
   const arr = [...array];
+  // Extra entropy: discard N random values based on current milliseconds
+  const skip = (Date.now() % 13) + 2;
+  for (let k = 0; k < skip; k++) Math.random();
+  // Fisher-Yates
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];

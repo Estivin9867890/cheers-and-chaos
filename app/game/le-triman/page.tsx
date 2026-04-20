@@ -188,8 +188,13 @@ export default function LeTrimanPage() {
   // Résultat : en phase jeu → evaluate() ; en phase élection → minimal
   const [result, setResult]   = useState<RuleResult | null>(null);
 
-  // Générateur non biaisé : Math.floor garantit 1–6 sans edge-case à 0
-  const randDie = () => Math.floor(Math.random() * 6) + 1;
+  // Générateur non biaisé avec entropy temporelle pour éviter les séries perçues
+  const randDie = () => {
+    // Avance le PRNG de N steps basés sur la milliseconde courante
+    const skip = (Date.now() % 7) + 1;
+    for (let i = 0; i < skip; i++) Math.random();
+    return Math.floor(Math.random() * 6) + 1;
+  };
 
   // ── Lancer les dés ───────────────────────────────────────────────────────
 

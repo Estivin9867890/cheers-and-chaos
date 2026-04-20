@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { ArrowLeft, MessageCircle, HelpCircle, Crown, Palmtree, Triangle, RotateCcw, BookOpen, Shuffle } from "lucide-react";
+import { ArrowLeft, MessageCircle, HelpCircle, Crown, Palmtree, Triangle, RotateCcw, BookOpen, Shuffle, Lightbulb } from "lucide-react";
 import Link from "next/link";
 import GameCard from "@/components/game-select/GameCard";
 import { usePlayerStore } from "@/lib/store/playerStore";
@@ -64,6 +64,13 @@ const GAMES = [
     description: "Des dilemmes impossibles, la minorité boit !",
     minPlayers: 2,
     path: "/game/tu-preferes",
+  },
+  {
+    mode: "fun-facts" as GameMode,
+    icon: Lightbulb,
+    description: "Faits insolites & débats enflammés !",
+    minPlayers: 1,
+    path: "/game/fun-facts",
   },
 ];
 
