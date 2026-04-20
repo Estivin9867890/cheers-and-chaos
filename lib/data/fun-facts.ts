@@ -155,4 +155,147 @@ export const FUN_FACTS: FunFactCard[] = [
   { id: "db-pc08", type: "debate", emoji: "📖", category: "Pop Culture", content: "Le livre est-il toujours meilleur que son adaptation cinématographique ? Exemples à l'appui.", debateSip: "La minorité boit 1🍺" },
   { id: "db-pc09", type: "debate", emoji: "🎤", category: "Pop Culture", content: "Le rap est-il aussi artistiquement valide que la chanson française traditionnelle ?", debateSip: "La minorité boit 1🍺" },
   { id: "db-pc10", type: "debate", emoji: "🏆", category: "Pop Culture", content: "GOAT du foot : Messi ou Ronaldo ? Discussion de 2 minutes, vote final.", debateSip: "La minorité boit 3🍺" },
+
+  // ═══════════════════════════════════════════════════════════════
+  // FUN FACTS SUPPLÉMENTAIRES
+  // ═══════════════════════════════════════════════════════════════
+
+  // ── Animaux (suite) ────────────────────────────────────────────
+  { id: "ff-a016", type: "fact", emoji: "🦅", category: "Animaux", content: "Les aigles ont une vision 4 à 8 fois plus précise que les humains et peuvent repérer un lapin à 3 km de distance." },
+  { id: "ff-a017", type: "fact", emoji: "🐊", category: "Animaux", content: "Les crocodiles ne peuvent pas tirer leur langue. Elle est attachée à leur mâchoire inférieure." },
+  { id: "ff-a018", type: "fact", emoji: "🦓", category: "Animaux", content: "Les zèbres sont en réalité des animaux à fourrure noire avec des rayures blanches — pas l'inverse." },
+  { id: "ff-a019", type: "fact", emoji: "🐳", category: "Animaux", content: "La baleine bleue est l'animal le plus grand jamais connu. Son cœur est si gros qu'un humain pourrait y ramper." },
+  { id: "ff-a020", type: "fact", emoji: "🦥", category: "Animaux", content: "Les paresseux mettent jusqu'à 30 jours pour digérer un seul repas. Ils descendent de leur arbre une fois par semaine pour déféquer." },
+  { id: "ff-a021", type: "fact", emoji: "🐦", category: "Animaux", content: "Les perroquets gris d'Afrique peuvent résoudre des puzzles aussi bien que des enfants de 5 ans. Ils comprennent le concept 'zéro'." },
+  { id: "ff-a022", type: "fact", emoji: "🐬", category: "Animaux", content: "Les dauphins dorment en laissant un demi-cerveau éveillé pour respirer et surveiller les prédateurs." },
+  { id: "ff-a023", type: "fact", emoji: "🦠", category: "Animaux", content: "Les poulpes peuvent faire passer leur corps à travers n'importe quelle ouverture plus grande que leur bec — le seul os qu'ils possèdent." },
+  { id: "ff-a024", type: "fact", emoji: "🐻", category: "Animaux", content: "Les ours polaires ont la peau noire (pour absorber la chaleur) et les poils transparents. La fourrure blanche est une illusion optique." },
+  { id: "ff-a025", type: "fact", emoji: "🦋", category: "Animaux", content: "Pendant sa chrysalide, la chenille se liquéfie presque complètement — ses tissus se dissolvent avant de se réorganiser en papillon." },
+  { id: "ff-a026", type: "fact", emoji: "🐭", category: "Animaux", content: "Les rats rient quand on les chatouille — leurs chatouilles sont ultrasoniques, inaudibles pour les humains." },
+  { id: "ff-a027", type: "fact", emoji: "🦑", category: "Animaux", content: "Les calmars géants ont les plus grands yeux du règne animal — jusqu'à 30 cm de diamètre, soit la taille d'une assiette." },
+  { id: "ff-a028", type: "fact", emoji: "🐢", category: "Animaux", content: "Les tortues peuvent vivre sans manger pendant un an. Certaines espèces vivent plus de 150 ans." },
+
+  // ── Espace (suite) ────────────────────────────────────────────
+  { id: "ff-s011", type: "fact", emoji: "🌍", category: "Espace", content: "La Terre tourne à environ 1 670 km/h sur elle-même. Tu voyages à cette vitesse en ce moment même sans le sentir." },
+  { id: "ff-s012", type: "fact", emoji: "🪨", category: "Espace", content: "Chaque jour, environ 40 à 100 tonnes de matière extraterrestre (météorites, poussière) tombent sur la Terre." },
+  { id: "ff-s013", type: "fact", emoji: "🌑", category: "Espace", content: "La Lune s'éloigne de la Terre d'environ 3,8 cm par an. Dans des milliards d'années, les éclipses totales ne seront plus possibles." },
+  { id: "ff-s014", type: "fact", emoji: "🔭", category: "Espace", content: "Si tu pleurais dans l'espace, tes larmes ne tomberaient pas — elles formeraient une bulle de liquide autour de ton œil." },
+  { id: "ff-s015", type: "fact", emoji: "🌞", category: "Espace", content: "Il faudrait 1,3 million de Terres pour remplir le volume du Soleil. Et le Soleil est une étoile de taille moyenne." },
+  { id: "ff-s016", type: "fact", emoji: "💥", category: "Espace", content: "Quand deux galaxies entrent en collision, presque aucune étoile ne se heurte car l'espace entre elles est immense." },
+  { id: "ff-s017", type: "fact", emoji: "🌏", category: "Espace", content: "La ISS orbite à 400 km de hauteur mais voyage si vite (28 000 km/h) que ses astronautes voient 16 levers de soleil par jour." },
+  { id: "ff-s018", type: "fact", emoji: "⚫", category: "Espace", content: "Au bord d'un trou noir, le temps ralentit. Quelqu'un qui y reste quelques heures peut voir des années s'écouler dehors." },
+  { id: "ff-s019", type: "fact", emoji: "🧊", category: "Espace", content: "Il neige en métal sur Vénus. À haute altitude, des nuages de plomb et bismuth se condensent et 'précipitent' sur les montagnes." },
+  { id: "ff-s020", type: "fact", emoji: "🎵", category: "Espace", content: "La NASA a détecté des 'sons' dans l'espace via des ondes de pression dans des nuages de gaz. Le trou noir de Perseus 'émet' la note Si bémol, 57 octaves sous le Do central." },
+
+  // ── Corps humain (suite) ───────────────────────────────────────
+  { id: "ff-h011", type: "fact", emoji: "🫁", category: "Corps humain", content: "Dépliés, tes poumons auraient une surface d'environ 70 m² — soit la taille d'un appartement." },
+  { id: "ff-h012", type: "fact", emoji: "🧠", category: "Corps humain", content: "Le cerveau est actif toute la nuit pendant le sommeil. Il en profite pour 'nettoyer' ses déchets métaboliques, dont des protéines liées à Alzheimer." },
+  { id: "ff-h013", type: "fact", emoji: "🫀", category: "Corps humain", content: "Un cœur humain peut continuer à battre même séparé du corps s'il est correctement alimenté en oxygène — c'est ce que les chirurgiens font lors des transplantations." },
+  { id: "ff-h014", type: "fact", emoji: "👃", category: "Corps humain", content: "L'humain peut distinguer environ 1 billion d'odeurs différentes — bien plus que les 10 millions de couleurs." },
+  { id: "ff-h015", type: "fact", emoji: "💅", category: "Corps humain", content: "Les ongles de la main dominante poussent plus vite. Et les ongles poussent plus vite en été qu'en hiver." },
+  { id: "ff-h016", type: "fact", emoji: "🦷", category: "Corps humain", content: "L'émail des dents est la substance la plus dure produite par le corps humain — plus dure que l'acier à poids équivalent." },
+  { id: "ff-h017", type: "fact", emoji: "😱", category: "Corps humain", content: "La chair de poule est un réflexe hérité de nos ancêtres poilus — les poils dressés les faisaient paraître plus grands face aux prédateurs." },
+  { id: "ff-h018", type: "fact", emoji: "🫦", category: "Corps humain", content: "Le sarcasme est traité par une zone différente du cerveau que l'humour normal — et les personnes qui ont des lésions dans cette zone ne comprennent plus le sarcasme." },
+  { id: "ff-h019", type: "fact", emoji: "🤧", category: "Corps humain", content: "L'éternuement projette des gouttelettes à environ 160 km/h. Fermer les yeux pendant un éternuement est un réflexe involontaire." },
+  { id: "ff-h020", type: "fact", emoji: "🌡️", category: "Corps humain", content: "La température normale du corps n'est pas exactement 37°C : elle varie selon l'heure (plus basse le matin), l'âge, et l'activité." },
+
+  // ── Histoire insolite (suite) ──────────────────────────────────
+  { id: "ff-i011", type: "fact", emoji: "🏰", category: "Histoire", content: "Le Château de Windsor est la plus ancienne et la plus grande résidence royale habitée du monde — les rois y vivent depuis 900 ans." },
+  { id: "ff-i012", type: "fact", emoji: "⚡", category: "Histoire", content: "Benjamin Franklin n'a jamais breveté son paratonnerre, souhaitant en faire bénéficier le monde entier gratuitement." },
+  { id: "ff-i013", type: "fact", emoji: "🗽", category: "Histoire", content: "La Statue de la Liberté est un cadeau de la France aux États-Unis en 1886, conçu par le sculpteur Bartholdi et dont la structure intérieure est de Gustave Eiffel." },
+  { id: "ff-i014", type: "fact", emoji: "🎯", category: "Histoire", content: "Napoléon Bonaparte mesurait environ 1m69 — dans la moyenne de l'époque. La légende de sa petite taille vient d'une confusion entre les mesures françaises et anglaises." },
+  { id: "ff-i015", type: "fact", emoji: "🎸", category: "Histoire", content: "Le rock'n'roll a été interdit dans plusieurs pays dans les années 50, considéré comme 'immoral' et 'dangereux' pour la jeunesse." },
+  { id: "ff-i016", type: "fact", emoji: "🍺", category: "Histoire", content: "Les ouvriers qui ont construit les pyramides égyptiennes recevaient de la bière comme salaire — environ 4 à 5 litres par jour." },
+  { id: "ff-i017", type: "fact", emoji: "🚀", category: "Histoire", content: "La NASA a envoyé un disque d'or dans l'espace (Voyager 1) avec des sons et images de la Terre — au cas où des extraterrestres le trouveraient." },
+  { id: "ff-i018", type: "fact", emoji: "🎭", category: "Histoire", content: "Shakespeare a inventé plus de 1 700 mots encore utilisés aujourd'hui : bedroom, lonely, generous, obscene, swagger..." },
+  { id: "ff-i019", type: "fact", emoji: "🏊", category: "Histoire", content: "Les anciens Romains utilisaient du garum (sauce de poisson fermenté) comme condiment universel, équivalent du ketchup moderne — mais à base d'intestins de poisson." },
+  { id: "ff-i020", type: "fact", emoji: "📜", category: "Histoire", content: "La Bible est le livre le plus vendu de tous les temps avec environ 5 milliards d'exemplaires — suivie de 'Don Quichotte' et du 'Petit Prince'." },
+
+  // ── Psychologie (suite) ───────────────────────────────────────
+  { id: "ff-p011", type: "fact", emoji: "👁️", category: "Psychologie", content: "L'effet Mandela : des milliers de personnes partagent le même faux souvenir collectif. Exemple : beaucoup jurent que Nelson Mandela est mort en prison dans les années 80." },
+  { id: "ff-p012", type: "fact", emoji: "🪄", category: "Psychologie", content: "Le biais de confirmation : le cerveau cherche activement des preuves qui confirment ce qu'il croit déjà, et ignore les informations contraires." },
+  { id: "ff-p013", type: "fact", emoji: "💭", category: "Psychologie", content: "On pense en 'images' et en 'concepts' bien plus qu'en mots. Le langage intérieur n'est qu'une traduction de la pensée, pas la pensée elle-même." },
+  { id: "ff-p014", type: "fact", emoji: "😰", category: "Psychologie", content: "La peur du clown (coulrophobie) est l'une des phobies les plus répandues. Elle vient du fait que le visage peint masque les émotions réelles." },
+  { id: "ff-p015", type: "fact", emoji: "🤝", category: "Psychologie", content: "Les gens qui partagent des expériences intenses (peur, danger, sport extrême) ensemble développent des liens émotionnels beaucoup plus forts qu'en conditions normales." },
+  { id: "ff-p016", type: "fact", emoji: "🎭", category: "Psychologie", content: "L'effet spotlight : on pense être bien plus remarqué par les autres qu'on ne l'est vraiment. Les gens sont trop centrés sur eux-mêmes pour vraiment t'observer." },
+  { id: "ff-p017", type: "fact", emoji: "💸", category: "Psychologie", content: "La douleur de perdre 10€ est psychologiquement plus intense que le plaisir d'en gagner 10. C'est l'aversion à la perte (Kahneman, prix Nobel)." },
+  { id: "ff-p018", type: "fact", emoji: "🧩", category: "Psychologie", content: "Résoudre un problème difficile juste avant de dormir peut mener à une solution le lendemain matin. Le cerveau continue de travailler pendant le sommeil." },
+  { id: "ff-p019", type: "fact", emoji: "😍", category: "Psychologie", content: "Tomber amoureux libère les mêmes substances chimiques (dopamine, noradrénaline) que consommer de la cocaïne. Littéralement une addiction chimique." },
+  { id: "ff-p020", type: "fact", emoji: "🎯", category: "Psychologie", content: "Le cerveau ne peut pas distinguer une expérience imaginée avec intensité d'un vrai souvenir. Les athlètes utilisent la visualisation mentale comme entraînement réel." },
+
+  // ── Tech & Science (suite) ────────────────────────────────────
+  { id: "ff-t011", type: "fact", emoji: "📡", category: "Tech & Science", content: "L'internet mondial pèse physiquement environ 50 grammes — c'est le poids des électrons en mouvement à l'intérieur de tous les câbles et serveurs." },
+  { id: "ff-t012", type: "fact", emoji: "⚗️", category: "Tech & Science", content: "L'or est si malléable qu'on peut en faire une feuille si fine qu'elle est transparente. 30 grammes d'or peuvent être étirés en un fil de 80 km." },
+  { id: "ff-t013", type: "fact", emoji: "🔥", category: "Tech & Science", content: "Le feu n'existe pas dans l'espace en apesanteur. Sans gravité, il forme une sphère parfaite et brûle différemment — sans flamme en forme de larme." },
+  { id: "ff-t014", type: "fact", emoji: "💎", category: "Tech & Science", content: "Les diamants ne sont pas si rares. Ce sont les gemmes les plus communes — leur prix élevé est une construction marketing de DeBeers dans les années 1930." },
+  { id: "ff-t015", type: "fact", emoji: "🌀", category: "Tech & Science", content: "L'eau dans un vortex tourne dans le sens des aiguilles d'une montre dans l'hémisphère sud et inversement dans le nord — à cause de la force de Coriolis." },
+  { id: "ff-t016", type: "fact", emoji: "🧲", category: "Tech & Science", content: "Le Wi-Fi utilise les mêmes ondes électromagnétiques que ton four à micro-ondes — mais à une puissance 100 000 fois plus faible." },
+  { id: "ff-t017", type: "fact", emoji: "🌊", category: "Tech & Science", content: "Les tsunamis peuvent traverser l'océan Pacifique (17 000 km) en moins de 24 heures, en voyageant à 800 km/h dans les eaux profondes." },
+  { id: "ff-t018", type: "fact", emoji: "🦠", category: "Tech & Science", content: "Un seul gramme de sol fertile contient environ 1 milliard de bactéries, 1 million de champignons et 10 000 protistes." },
+  { id: "ff-t019", type: "fact", emoji: "🌡️", category: "Tech & Science", content: "En laboratoire, on a créé la matière la plus froide de l'univers : un condensat de Bose-Einstein à -273,14999°C — plus froid que le fond de l'espace." },
+  { id: "ff-t020", type: "fact", emoji: "🖨️", category: "Tech & Science", content: "Les imprimantes 3D peuvent aujourd'hui imprimer de la peau humaine pour des greffes, de la nourriture, des pièces d'avion, et même des organes fonctionnels." },
+
+  // ── Insolite (suite) ─────────────────────────────────────────
+  { id: "ff-ab11", type: "fact", emoji: "🎰", category: "Insolite", content: "Les casinos n'ont pas de fenêtres ni d'horloges — délibérément conçus pour que tu perdes la notion du temps." },
+  { id: "ff-ab12", type: "fact", emoji: "🦷", category: "Insolite", content: "Le Tooth Fairy (fée des dents) americaine rapporterait en moyenne 5$ par dent aux enfants américains selon des statistiques annuelles." },
+  { id: "ff-ab13", type: "fact", emoji: "🛒", category: "Insolite", content: "Le chariot de supermarché a été inventé en 1937. Le premier client à l'utiliser a refusé — il trouvait ça humiliant de pousser un chariot." },
+  { id: "ff-ab14", type: "fact", emoji: "🐠", category: "Insolite", content: "Les Nemo (poissons clowns) sont tous nés mâles. Ce fait rend 'Le Monde de Nemo' beaucoup plus biologiquement compliqué." },
+  { id: "ff-ab15", type: "fact", emoji: "🧤", category: "Insolite", content: "Le Velcro a été inventé par un Suisse en 1941 après avoir observé des graines de bardane accrochées à sa veste et à son chien." },
+  { id: "ff-ab16", type: "fact", emoji: "🍌", category: "Insolite", content: "La banane que tu manges aujourd'hui n'est pas la même qu'il y a 60 ans. La Gros Michel, plus savoureuse, a disparu à cause d'un champignon." },
+  { id: "ff-ab17", type: "fact", emoji: "📞", category: "Insolite", content: "Le premier message SMS envoyé était 'Merry Christmas' en décembre 1992. Son inventeur Neil Papworth n'avait pas de téléphone — il l'a envoyé depuis un ordinateur." },
+  { id: "ff-ab18", type: "fact", emoji: "🎈", category: "Insolite", content: "Si tu cries dans l'espace depuis la surface d'une planète sans atmosphère, personne n'entend rien. Mais si tu cries dans une station spatiale, ça résonne dans les murs." },
+  { id: "ff-ab19", type: "fact", emoji: "🦆", category: "Insolite", content: "Le canard de caoutchouc jaune est apparu en 1970 mais les canards en caoutchouc existent depuis 1800 comme jouet de bain victorien." },
+  { id: "ff-ab20", type: "fact", emoji: "🍦", category: "Insolite", content: "La crème glacée a été inventée en Chine il y a 2000 ans — à base de lait de chèvre et de neige fraîche conservée dans des caves." },
+
+  // ─────────────────────────────────────────────────────────────
+  // DÉBATS SUPPLÉMENTAIRES
+  // ─────────────────────────────────────────────────────────────
+
+  // ── Food Débats (suite) ────────────────────────────────────────
+  { id: "db-f011", type: "debate", emoji: "🌮", category: "Food", content: "Tacos : viande ou poisson ? Classique contre fusion. Chacun défend son camp.", debateSip: "La minorité boit 1🍺" },
+  { id: "db-f012", type: "debate", emoji: "🫙", category: "Food", content: "Moutarde forte ou moutarde douce : laquelle est vraiment supérieure dans un hot-dog ? Vote collectif.", debateSip: "La minorité boit 1🍺" },
+  { id: "db-f013", type: "debate", emoji: "🫗", category: "Food", content: "Le vin rosé : vrai vin adulte ou compromis pour ceux qui n'assument pas ? Débat.", debateSip: "Les défenseurs du rosé boivent 1🍺 (ou les opposants)" },
+  { id: "db-f014", type: "debate", emoji: "🧇", category: "Food", content: "Pancakes vs gaufres : lequel mérite vraiment sa place dans le brunch ?", debateSip: "La minorité boit 1🍺" },
+  { id: "db-f015", type: "debate", emoji: "🌶️", category: "Food", content: "La nourriture épicée : plaisir ou torture volontaire ? Défendez votre position.", debateSip: "Ceux qui disent torture boivent 1🍺 de honte" },
+  { id: "db-f016", type: "debate", emoji: "🥩", category: "Food", content: "Steak bien cuit ou saignant : qui a le meilleur goût ? Débat de carnivores.", debateSip: "La minorité boit 2🍺" },
+  { id: "db-f017", type: "debate", emoji: "🫐", category: "Food", content: "Les smoothies aux fruits : alimentation saine ou bombe à sucre déguisée ? Vote du groupe.", debateSip: "La minorité boit 1🍺" },
+  { id: "db-f018", type: "debate", emoji: "☕", category: "Food", content: "Café noir ou café avec lait : qui est le vrai amateur de café ?", debateSip: "Ceux qui prennent du lait boivent 1🍺 selon les puristes" },
+  { id: "db-f019", type: "debate", emoji: "🥓", category: "Food", content: "Bacon dans une salade : crime culinaire ou génie absolu ? Défendez-vous.", debateSip: "La minorité boit 1🍺" },
+  { id: "db-f020", type: "debate", emoji: "🧊", category: "Food", content: "Glace pilée ou glaçons classiques dans un verre : lequel est vraiment meilleur ?", debateSip: "La minorité boit 1🍺" },
+
+  // ── Lifestyle Débats (suite) ──────────────────────────────────
+  { id: "db-l011", type: "debate", emoji: "💤", category: "Lifestyle", content: "Sieste de l'après-midi : signe de paresse ou habitude des gens intelligents ? Débat.", debateSip: "La minorité boit 1🍺" },
+  { id: "db-l012", type: "debate", emoji: "🎒", category: "Lifestyle", content: "Vacances organisées ou voyages improvisés : quelle approche donne les meilleurs souvenirs ?", debateSip: "La minorité boit 2🍺" },
+  { id: "db-l013", type: "debate", emoji: "👟", category: "Lifestyle", content: "Porter des chaussures de sport avec une tenue habillée : look tendance ou faute de goût ?", debateSip: "La minorité boit 1🍺" },
+  { id: "db-l014", type: "debate", emoji: "🎧", category: "Lifestyle", content: "Musique en fond quand tu travailles : aide à la concentration ou distraction déguisée ?", debateSip: "La minorité boit 1🍺" },
+  { id: "db-l015", type: "debate", emoji: "📷", category: "Lifestyle", content: "Prendre des photos de partout en vacances : garder des souvenirs ou rater le présent ?", debateSip: "La minorité boit 2🍺" },
+  { id: "db-l016", type: "debate", emoji: "🛁", category: "Lifestyle", content: "Bain ou douche : lequel est vraiment plus propre et agréable ? Arguments des deux camps.", debateSip: "La minorité boit 1🍺" },
+  { id: "db-l017", type: "debate", emoji: "🌱", category: "Lifestyle", content: "Végétarisme ou non : est-ce vraiment indispensable pour être écolo ? Débat sans tabou.", debateSip: "La minorité boit 2🍺" },
+  { id: "db-l018", type: "debate", emoji: "🏃", category: "Lifestyle", content: "Sport en salle vs sport en plein air : lequel est vraiment plus efficace ?", debateSip: "La minorité boit 1🍺" },
+  { id: "db-l019", type: "debate", emoji: "🛏️", category: "Lifestyle", content: "Faire son lit tous les matins : discipline personnelle utile ou perte de temps totale ?", debateSip: "La minorité boit 1🍺" },
+  { id: "db-l020", type: "debate", emoji: "🌍", category: "Lifestyle", content: "Billet d'avion low-cost vs train : lequel est vraiment meilleur (confort + écologie) ?", debateSip: "La minorité boit 2🍺" },
+
+  // ── Société Débats (suite) ────────────────────────────────────
+  { id: "db-s011", type: "debate", emoji: "📱", category: "Société", content: "Les téléphones dans les écoles : interdits totalement ou liberté encadrée ? Débat.", debateSip: "La minorité boit 2🍺" },
+  { id: "db-s012", type: "debate", emoji: "💰", category: "Société", content: "Donner des étrennes ou pas : tradition utile ou pression sociale inutile ?", debateSip: "La minorité boit 1🍺" },
+  { id: "db-s013", type: "debate", emoji: "🎓", category: "Société", content: "Les études supérieures sont-elles indispensables pour réussir aujourd'hui ? Arguments.", debateSip: "La minorité boit 2🍺" },
+  { id: "db-s014", type: "debate", emoji: "🤖", category: "Société", content: "Serait-on plus heureux sans réseaux sociaux ? Débat sur la dépendance numérique.", debateSip: "La minorité boit 2🍺" },
+  { id: "db-s015", type: "debate", emoji: "🏠", category: "Société", content: "Acheter ou louer son logement : lequel est vraiment le choix le plus malin financièrement ?", debateSip: "La minorité boit 2🍺" },
+  { id: "db-s016", type: "debate", emoji: "🎂", category: "Société", content: "Fêter son anniversaire : plaisir sincère ou obligation sociale stressante ?", debateSip: "La minorité boit 1🍺" },
+  { id: "db-s017", type: "debate", emoji: "🧑‍💻", category: "Société", content: "Télétravail vs bureau : lequel rend vraiment les gens plus productifs et heureux ?", debateSip: "La minorité boit 2🍺" },
+  { id: "db-s018", type: "debate", emoji: "🌿", category: "Société", content: "La croissance économique peut-elle être compatible avec la transition écologique ? Débat.", debateSip: "La minorité boit 2🍺" },
+  { id: "db-s019", type: "debate", emoji: "🎪", category: "Société", content: "Les festivals de musique : expérience culturelle authentique ou événement commercial déguisé ?", debateSip: "La minorité boit 1🍺" },
+  { id: "db-s020", type: "debate", emoji: "💬", category: "Société", content: "Est-ce qu'on parle trop d'argent ou pas assez entre amis ? La transparence financière est-elle saine ?", debateSip: "Vote du groupe, la minorité boit 1🍺" },
+
+  // ── Pop Culture Débats (suite) ────────────────────────────────
+  { id: "db-pc11", type: "debate", emoji: "🎬", category: "Pop Culture", content: "Scorsese vs Tarantino : qui est le plus grand réalisateur vivant ? Défendez votre position.", debateSip: "La minorité boit 2🍺" },
+  { id: "db-pc12", type: "debate", emoji: "🎵", category: "Pop Culture", content: "Spotify vs Apple Music : lequel est vraiment supérieur pour l'expérience musicale ?", debateSip: "La minorité boit 1🍺" },
+  { id: "db-pc13", type: "debate", emoji: "🏋️", category: "Pop Culture", content: "Les influenceurs fitness donnent-ils de bons conseils ou propagent-ils des dommages corporels ?", debateSip: "La minorité boit 2🍺" },
+  { id: "db-pc14", type: "debate", emoji: "🦸", category: "Pop Culture", content: "Les super-héros au cinéma : le genre le plus inventif du moment ou surexploité jusqu'à l'écœurement ?", debateSip: "La minorité boit 2🍺" },
+  { id: "db-pc15", type: "debate", emoji: "📺", category: "Pop Culture", content: "Les émissions de téléréalité : miroir de la société ou abrutissement télévisé programmé ?", debateSip: "La minorité boit 1🍺" },
+  { id: "db-pc16", type: "debate", emoji: "🎮", category: "Pop Culture", content: "FIFA vs PES/eFootball : lequel mérite réellement l'argent de ses joueurs ?", debateSip: "La minorité boit 1🍺" },
+  { id: "db-pc17", type: "debate", emoji: "🎤", category: "Pop Culture", content: "Beyoncé ou Rihanna : qui a eu la meilleure carrière artistique globale ? Débat.", debateSip: "La minorité boit 2🍺" },
+  { id: "db-pc18", type: "debate", emoji: "🧟", category: "Pop Culture", content: "Walking Dead vs The Last of Us : lequel a la meilleure narration de fin du monde ?", debateSip: "La minorité boit 1🍺" },
+  { id: "db-pc19", type: "debate", emoji: "🎵", category: "Pop Culture", content: "Le festival Coachella est-il devenu trop commercial et a perdu son âme musicale ?", debateSip: "La minorité boit 1🍺" },
+  { id: "db-pc20", type: "debate", emoji: "📱", category: "Pop Culture", content: "TikTok a-t-il rendu la musique pop meilleure (plus accessible) ou l'a-t-il appauvrie ?", debateSip: "La minorité boit 2🍺" },
 ];
